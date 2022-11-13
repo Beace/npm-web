@@ -27,6 +27,7 @@
     "dist/"
   ],
   "dependencies": {
+    "@douyinfe/semi-ui": "^2.23.1",
     "@modern-js/runtime": "1.21.3",
     "react": "^17.0.1",
     "react-dom": "^17.0.1"
@@ -34,13 +35,13 @@
   "devDependencies": {
     "@modern-js/app-tools": "1.21.3",
     "@modern-js/tsconfig": "1.21.3",
-    "rimraf": "^3.0.2",
-    "lint-staged": "^11.2.6",
-    "prettier": "^2.6.2",
-    "husky": "^8.0.0",
-    "typescript": "^4",
+    "@types/node": "^14",
     "@types/react": "^17",
     "@types/react-dom": "^17",
-    "@types/node": "^14"
+    "husky": "^8.0.0",
+    "lint-staged": "^11.2.6",
+    "prettier": "^2.6.2",
+    "rimraf": "^3.0.2",
+    "typescript": "^4"
   }
 }
