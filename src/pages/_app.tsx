@@ -1,5 +1,5 @@
 import { ComponentType, useEffect, useState } from 'react';
-// import { NavLink } from '@modern-js/runtime/router';
+import { NavLink, useLocation } from '@modern-js/runtime/router';
 
 import { Layout, Nav, Button, Avatar, Tooltip, Input } from '@douyinfe/semi-ui';
 import {
@@ -17,8 +17,18 @@ import '../App.css';
 import { setGlobalMode, getGlobalMode } from '@/utils/mode';
 
 const { Header, Footer, Sider, Content } = Layout;
+
+const routerMap = {
+  workspace: '/',
+  packages: '/packages',
+  scopes: '/scopes',
+  security: '/security',
+  setting: '/setting',
+};
+
 const App = ({ Component, ...pageProps }: { Component: ComponentType }) => {
   const [mode, setMode] = useState(getGlobalMode());
+  const [selectedKeys, setSelectedKeys] = useState(['/']);
   useEffect(() => {
     setGlobalMode(getGlobalMode() || 'light');
   }, []);
@@ -27,46 +37,58 @@ const App = ({ Component, ...pageProps }: { Component: ComponentType }) => {
     setGlobalMode(newMode);
     setMode(newMode);
   };
+  const location = useLocation();
+  useEffect(() => {
+    setSelectedKeys([location.pathname]);
+  }, [location]);
   return (
     <Layout>
       <Sider style={{ backgroundColor: 'var(--semi-color-bg-1)' }}>
         <Nav
-          defaultSelectedKeys={['Home']}
-          style={{ maxWidth: 220, height: '100%' }}
-          items={[
-            {
-              itemKey: 'Workspace',
-              text: 'Workspace',
-              icon: <IconHome size="large" />,
-            },
-            {
-              itemKey: 'Histogram',
-              text: 'Packages',
-              icon: <IconHistogram size="large" />,
-            },
-            {
-              itemKey: 'Live',
-              text: 'Scopes',
-              icon: <IconLive size="large" />,
-            },
-            {
-              itemKey: 'Security',
-              text: 'Security',
-              icon: <IconSetting size="large" />,
-            },
-            {
-              itemKey: 'Setting',
-              text: 'Setting',
-              icon: <IconSetting size="large" />,
-            },
-          ]}
           header={{
             logo: <img src={logo} />,
             text: 'Private npm',
           }}
-          footer={{
-            collapseButton: false,
+          selectedKeys={selectedKeys}
+          renderWrapper={({ itemElement, props }) => {
+            return (
+              <NavLink
+                activeClassName="selected"
+                style={{ textDecoration: 'none' }}
+                to={props.itemKey as string}
+                exact
+              >
+                {itemElement}
+              </NavLink>
+            );
           }}
+          items={[
+            {
+              itemKey: routerMap.workspace,
+              text: 'Workspace',
+              icon: <IconHome size="large" />,
+            },
+            {
+              itemKey: routerMap.packages,
+              text: 'Packages',
+              icon: <IconHistogram size="large" />,
+            },
+            {
+              itemKey: routerMap.scopes,
+              text: 'Scopes',
+              icon: <IconLive size="large" />,
+            },
+            {
+              itemKey: routerMap.security,
+              text: 'Security',
+              icon: <IconSetting size="large" />,
+            },
+            {
+              itemKey: routerMap.setting,
+              text: 'Setting',
+              icon: <IconSetting size="large" />,
+            },
+          ]}
         />
       </Sider>
       <Layout>
