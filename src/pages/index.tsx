@@ -58,7 +58,7 @@ const Index = () => {
     {
       title: 'name',
       dataIndex: 'name',
-      render: (text, record, index) => {
+      render: (text: string, record: any) => {
         return (
           <div>
             <Avatar
@@ -79,7 +79,7 @@ const Index = () => {
     {
       title: 'owner',
       dataIndex: 'owner',
-      render: (text, record, index) => {
+      render: (text: string, record: any) => {
         return (
           <div>
             <Avatar
@@ -97,7 +97,7 @@ const Index = () => {
     {
       title: 'registry',
       dataIndex: 'registry',
-      render: (text, record, index) => {
+      render: (text: string) => {
         return text;
       },
     },
