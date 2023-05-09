@@ -71,4 +71,6 @@ body {
   overflow: auto;
   display: flex;
 }
-
+.semi-navigation .semi-navigation-item:first-child {
+  margin-top: 8px;
+}
