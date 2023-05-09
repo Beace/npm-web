@@ -3,11 +3,10 @@ import { Space, TabPane, Tabs, Tag, Typography } from '@douyinfe/semi-ui';
 import { useParams } from '@modern-js/runtime/router';
 import { useEffect } from 'react';
 import { useLocalModel } from '@modern-js/runtime/model';
-import gfm from '@bytemd/plugin-gfm';
-import { Viewer } from '@bytemd/react';
 import detail from '@/models/package-detail';
-import 'bytemd/dist/index.css';
-import './markdown.scss';
+
+import ReadMe from '@/components/package/readme';
+import Version from '@/components/package/version';
 
 const { Title, Text } = Typography;
 
@@ -15,7 +14,8 @@ const Index = () => {
   const params = useParams<{ name: string }>();
   const [{ packageInfo }, actions] = useLocalModel(detail);
   useEffect(() => {
-    actions.load();
+    actions.load(params.name);
+    actions.loadReadMe(params.name);
   }, []);
 
   return (
@@ -40,10 +40,13 @@ const Index = () => {
       <Text type="secondary">{packageInfo.description}</Text>
       <div style={{ width: '100%' }}>
         <Tabs type="line">
-          <TabPane tab="ReadMe" itemKey="1">
-            <Viewer value={packageInfo.readme} plugins={[gfm()]} />
+          <TabPane tab="README.md" itemKey="1">
+            <ReadMe packageInfo={packageInfo} />
           </TabPane>
-          <TabPane tab="Unpkg" itemKey="4">
+          <TabPane tab="Versions" itemKey="3">
+            <Version packageInfo={packageInfo} />
+          </TabPane>
+          <TabPane tab="UNPKG" itemKey="4">
             Unpkg
           </TabPane>
           <TabPane tab="Dependencies" itemKey="5">
@@ -51,9 +54,6 @@ const Index = () => {
           </TabPane>
           <TabPane tab="Dependents" itemKey="6">
             Dependents
-          </TabPane>
-          <TabPane tab="Versions" itemKey="3">
-            Versions
           </TabPane>
         </Tabs>
       </div>

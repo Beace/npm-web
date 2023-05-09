@@ -14,6 +14,7 @@ import {
   IconMoon,
   IconSearch,
 } from '@douyinfe/semi-icons';
+import styles from './_app.module.scss';
 import logo from '@/static/logo.png';
 import '../App.css';
 import { setGlobalMode, getGlobalMode } from '@/utils/mode';
@@ -43,16 +44,10 @@ const App = ({ Component, ...pageProps }: { Component: ComponentType }) => {
   useEffect(() => {
     setSelectedKeys([location.pathname]);
   }, [location]);
+
   return (
     <Layout>
-      <Header
-      // style={{
-      //   backgroundColor: 'var(--semi-color-bg-1)',
-      //   position: 'sticky',
-      //   top: 0,
-      //   zIndex: 1000,
-      // }}
-      >
+      <Header className={styles.topHeader}>
         <Nav
           mode="horizontal"
           header={{
@@ -64,18 +59,12 @@ const App = ({ Component, ...pageProps }: { Component: ComponentType }) => {
               <Button
                 theme="borderless"
                 icon={<IconBell size="extra-large" />}
-                style={{
-                  color: 'var(--semi-color-text-2)',
-                  marginRight: '12px',
-                }}
+                className={styles.footerButton}
               />
               <Button
                 theme="borderless"
                 icon={<IconHelpCircle size="extra-large" />}
-                style={{
-                  color: 'var(--semi-color-text-2)',
-                  marginRight: '12px',
-                }}
+                className={styles.footerButton}
               />
               <Tooltip
                 content={`切换到${mode === 'light' ? '暗色' : '亮色'}模式`}
@@ -84,17 +73,11 @@ const App = ({ Component, ...pageProps }: { Component: ComponentType }) => {
                   onClick={switchMode}
                   theme="borderless"
                   icon={<IconMoon size="extra-large" />}
-                  style={{
-                    color: 'var(--semi-color-text-2)',
-                    marginRight: '12px',
-                  }}
+                  className={styles.footerButton}
                 />
               </Tooltip>
               <Input
-                style={{
-                  color: 'var(--semi-color-text-2)',
-                  marginRight: '12px',
-                }}
+                className={styles.footerButton}
                 prefix={<IconSearch />}
                 showClear
                 placeholder="search package"
@@ -106,82 +89,78 @@ const App = ({ Component, ...pageProps }: { Component: ComponentType }) => {
           }
         />
       </Header>
-      <Layout>
-        <Sider style={{ backgroundColor: 'var(--semi-color-bg-1)' }}>
-          <Nav
-            selectedKeys={selectedKeys}
-            style={{ maxWidth: 220, height: '100%' }}
-            renderWrapper={({ itemElement, props }) => {
-              return (
-                <NavLink
-                  activeClassName="selected"
-                  style={{ textDecoration: 'none' }}
-                  to={props.itemKey as string}
-                  exact
-                >
-                  {itemElement}
-                </NavLink>
-              );
-            }}
-            items={[
-              {
-                itemKey: routerMap.workspace,
-                text: 'Workspace',
-                icon: <IconHome size="large" />,
-              },
-              {
-                itemKey: routerMap.packages,
-                text: 'Packages',
-                icon: <IconHistogram size="large" />,
-              },
-              {
-                itemKey: routerMap.scopes,
-                text: 'Scopes',
-                icon: <IconLive size="large" />,
-              },
-              {
-                itemKey: routerMap.security,
-                text: 'Security',
-                icon: <IconSetting size="large" />,
-              },
-              {
-                itemKey: routerMap.setting,
-                text: 'Setting',
-                icon: <IconSetting size="large" />,
-              },
-            ]}
-            footer={{
-              collapseButton: true,
-            }}
-          />
-        </Sider>
-        <Content
-          style={{
-            padding: '24px',
-            backgroundColor: 'var(--semi-color-bg-0)',
+      <Sider style={{ backgroundColor: 'var(--semi-color-bg-1)' }}>
+        <Nav
+          selectedKeys={selectedKeys}
+          className={styles.sideNav}
+          renderWrapper={({ itemElement, props }) => {
+            return (
+              <NavLink
+                activeClassName="selected"
+                style={{ textDecoration: 'none' }}
+                to={props.itemKey as string}
+                exact
+              >
+                {itemElement}
+              </NavLink>
+            );
           }}
-        >
+          items={[
+            {
+              itemKey: routerMap.workspace,
+              text: 'Workspace',
+              icon: <IconHome size="large" />,
+            },
+            {
+              itemKey: routerMap.packages,
+              text: 'Packages',
+              icon: <IconHistogram size="large" />,
+            },
+            {
+              itemKey: routerMap.scopes,
+              text: 'Scopes',
+              icon: <IconLive size="large" />,
+            },
+            {
+              itemKey: routerMap.security,
+              text: 'Security',
+              icon: <IconSetting size="large" />,
+            },
+            {
+              itemKey: routerMap.setting,
+              text: 'Setting',
+              icon: <IconSetting size="large" />,
+            },
+          ]}
+          footer={{
+            collapseButton: true,
+          }}
+        />
+      </Sider>
+      <div className={styles.contentArea}>
+        <Content className={styles.content}>
           <Component {...pageProps} />
         </Content>
-      </Layout>
-      <Footer
-        style={{
-          display: 'flex',
-          justifyContent: 'space-between',
-          padding: '20px',
-          color: 'var(--semi-color-text-2)',
-          backgroundColor: 'rgba(var(--semi-grey-0), 1)',
-        }}
-      >
-        <span
+        <Footer
           style={{
             display: 'flex',
-            alignItems: 'center',
+            justifyContent: 'space-between',
+            padding: '20px',
+            color: 'var(--semi-color-text-2)',
+            backgroundColor: 'rgba(var(--semi-grey-0), 1)',
           }}
         >
-          <span>Copyright © 2022 @Beace. All Rights Reserved. </span>
-        </span>
-      </Footer>
+          <span
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              textAlign: 'center',
+            }}
+          >
+            <span>Copyright © 2022 @Beace. All Rights Reserved. </span>
+          </span>
+        </Footer>
+      </div>
     </Layout>
   );
 };

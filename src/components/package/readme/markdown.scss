@@ -842,6 +842,7 @@
   word-wrap: normal;
   background-color: transparent;
   border: 0;
+  white-space: break-spaces;
 }
 
 .markdown-body .csv-data td,
@@ -1784,6 +1785,7 @@ body[theme-mode=dark] {
     word-wrap: normal;
     background-color: transparent;
     border: 0;
+    white-space: break-spaces;
   }
 
   .markdown-body .csv-data td,

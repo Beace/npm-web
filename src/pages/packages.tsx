@@ -1,6 +1,6 @@
 import { Helmet } from '@modern-js/runtime/head';
-import { Avatar, Space, Table } from '@douyinfe/semi-ui';
-import { IconArrowUp, IconArrowDown } from '@douyinfe/semi-icons';
+import { Avatar, Button, Space, Table } from '@douyinfe/semi-ui';
+import { NavLink } from '@modern-js/runtime/router';
 
 const Index = () => {
   const columns = [
@@ -16,7 +16,15 @@ const Index = () => {
               src={record.nameIconSrc}
               style={{ marginRight: 12 }}
             />
-            {text}
+            <NavLink to={`/packages/${text}`}>
+              <Button
+                theme="borderless"
+                type="primary"
+                style={{ marginRight: 8 }}
+              >
+                {text}
+              </Button>
+            </NavLink>
           </div>
         );
       },
